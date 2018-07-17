@@ -34,6 +34,9 @@ class AtoiTesters
     public static void main(String[] argsgsgs)
     {
         Atoi anAtoi = new Atoi();
+        String aTest = "       white";
+
+        String whiteSpaceGone = anAtoi.eliminatedWhiteSpace(aTest);
     }
 
 }

@@ -19,29 +19,59 @@ public class Atoi
         else
         {
             int firstDigit = (int)stringWithoutSpace.charAt(0);
-            boolean isNegative = false;
+            int negative = 1;
 
             if (firstDigit == 45)
             {
-                isNegative = true;
+                negative = -1;
             }
             else if (firstDigit < 48 || firstDigit > 57)
             {
                 return 0;
             }
-            else
-            {
 
-            }
+                if (stringWithoutSpace.length() >= 2 && negative == -1)
+                {
+                    int secondDigit = stringWithoutSpace.charAt(1);
+                    secondDigit = Character.getNumericValue(secondDigit);
+
+                    if (secondDigit < 48 || secondDigit > 57)
+                    {
+                        return 0;
+                    }
+                    return convertToInteger(stringWithoutSpace, secondDigit * -1);
+                }
+
+                int total = convertToInteger(stringWithoutSpace, negative);
+
         }
 
         return 0;
 
     }
 
-    public int convertToInteger(String aStr, boolean isNegative)
+    public int convertToInteger(String aStr, int negative)
     {
-        return 0;
+        if (aStr.isEmpty())
+        {
+            return 0;
+        } else if (aStr.substring(0, 1).equals(" "))
+        {
+            return 0;
+        } else if ((int) aStr.charAt(0) < 48 || (int) aStr.charAt(0) > 57)
+        {
+            return 0;
+        }
+        else
+        {
+            int digit = aStr.charAt(0);
+            digit = Character.getNumericValue(digit);
+
+
+
+
+            return 0;
+        }
     }
 
     public String eliminatedWhiteSpace(String aStr)
@@ -63,11 +93,11 @@ class AtoiTesters
     public static void main(String[] argsgsgs)
     {
         Atoi anAtoi = new Atoi();
-        String aTest = "       white";
+        String aTest = "  981     white";
         String num = "891";
         int aChar = (int)num.charAt(0);
 
-        String whiteSpaceGone = anAtoi.eliminatedWhiteSpace(aTest);
+        int total = anAtoi.myAtoi(aTest);
     }
 
 }

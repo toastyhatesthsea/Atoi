@@ -38,16 +38,24 @@ public class Atoi
                     if (secondDigit < 48 || secondDigit > 57)
                     {
                         return 0;
+                    } else if (stringWithoutSpace.length() > 2)
+                    {
+                        return convertToInteger(stringWithoutSpace, secondDigit * negative);
                     }
-                    return convertToInteger(stringWithoutSpace, secondDigit * -1);
+                    else
+                    {
+                        return (secondDigit * negative);
+                    }
+
+                } else if (stringWithoutSpace.length() == 1)
+                {
+                    return 0;
                 }
-
-                int total = convertToInteger(stringWithoutSpace, negative);
-
+                else
+                {
+                    return convertToInteger(stringWithoutSpace, firstDigit);
+                }
         }
-
-        return 0;
-
     }
 
     public int convertToInteger(String aStr, int negative)

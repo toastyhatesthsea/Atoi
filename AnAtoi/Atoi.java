@@ -19,22 +19,27 @@ public class Atoi
         else
         {
             int firstDigit = (int)stringWithoutSpace.charAt(0);
+            boolean isNegative = false;
 
-            if (firstDigit < 48 || firstDigit > 57)
+            if (firstDigit == 45)
+            {
+                isNegative = true;
+            }
+            else if (firstDigit < 48 || firstDigit > 57)
             {
                 return 0;
             }
+            else
+            {
 
-
-
-
+            }
         }
 
         return 0;
 
     }
 
-    public int convertToInteger(String aStr)
+    public int convertToInteger(String aStr, boolean isNegative)
     {
         return 0;
     }

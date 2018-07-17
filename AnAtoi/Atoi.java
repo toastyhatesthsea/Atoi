@@ -24,6 +24,10 @@ public class Atoi
             if (firstDigit == 45)
             {
                 negative = -1;
+                if (str.length() < 2)
+                {
+                    return 0;
+                }
             }
             else if (firstDigit < 48 || firstDigit > 57)
             {
@@ -56,6 +60,8 @@ public class Atoi
             }
         }
     }
+
+    public String getRidOfLeadingZeroes(String)
 
     public int convertToInteger(String aStr, int total)
     {
@@ -95,7 +101,6 @@ public class Atoi
             if (isNegative)
             {
                 lastTotalDigit = lastTotalDigit * -1;
-                digitNumericValue = digitNumericValue * -1;
             }
 
             if (digitNumericValue != lastTotalDigit)
@@ -115,12 +120,16 @@ public class Atoi
 
     public String eliminatedWhiteSpace(String aStr)
     {
-        if (!aStr.isEmpty()&& !aStr.substring(0, 1).equals(" "))
+
+        if (!aStr.isEmpty()&& (!aStr.substring(0, 1).equals(" ") && !aStr.substring(0, 1).equals("+")))
         {
             return aStr;
         } else if (aStr.equals(" "))
         {
             return "";
+        } else if (aStr.isEmpty())
+        {
+            return aStr;
         } else
         {
             String stringWithoutLeadingWhitespace = aStr.substring(1, aStr.length());
@@ -141,10 +150,15 @@ class AtoiTesters
         String numWithWords = "4193 with words";
         String tooBigNegative = "-91283472332";
         String justOverLimit = "-2147483649";
+        String negativeFourtyTwo = "         -42";
         String num = "891";
+        String justNegative = "-";
+        String positiveNumber = "+1";
+        String justPositive = "+";
+        String negativeOneWithLeadingZeroes = "-00000000001";
         int aChar = (int)num.charAt(0);
 
-        int total = anAtoi.myAtoi(aTest);
+        int total = anAtoi.myAtoi(negativeOneWithLeadingZeroes);
     }
 
 }

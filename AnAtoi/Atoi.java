@@ -34,18 +34,17 @@ public class Atoi
             if (stringWithoutSpace.length() >= 2 && negative == -1)
             {
                 int secondDigit = stringWithoutSpace.charAt(1);
-                secondDigit = Character.getNumericValue(secondDigit);
 
                 if (secondDigit < 48 || secondDigit > 57)
                 {
                     return 0;
                 } else if (stringWithoutSpace.length() > 2) //More than two digits and negative
                 {
-                    return convertToInteger(stringWithoutSpace.substring(2, stringWithoutSpace.length()), secondDigit * negative);
+                    return convertToInteger(stringWithoutSpace.substring(2, stringWithoutSpace.length()), Character.getNumericValue(secondDigit) * negative);
                 }
                 else //Just a one digit negative number
                 {
-                    return (secondDigit * negative);
+                    return (Character.getNumericValue(secondDigit) * negative);
                 }
 
             } else if (stringWithoutSpace.length() == 1)
@@ -62,24 +61,28 @@ public class Atoi
     {
         if (aStr.isEmpty())
         {
-            return 0;
+            return total;
         } else if (aStr.substring(0, 1).equals(" "))
         {
-            return 0;
+            return total;
         } else if ((int) aStr.charAt(0) < 48 || (int) aStr.charAt(0) > 57)
         {
-            return 0;
+            return total;
         }
         else
         {
             int digit = aStr.charAt(0);
             digit = Character.getNumericValue(digit);
             total = total * 10; //Expand Total to make room to add digit
-            total = total + digit;
-
-            convertToInteger(aStr.substring(1, aStr.length()), total);
-
-            return total;
+            if (total < 0)
+            {
+                total = total - digit;
+            }
+            else
+            {
+                total = total + digit;
+            }
+            return convertToInteger(aStr.substring(1, aStr.length()), total);
         }
     }
 
@@ -102,11 +105,13 @@ class AtoiTesters
     public static void main(String[] argsgsgs)
     {
         Atoi anAtoi = new Atoi();
-        String aTest = "  981     white";
+        String aTest = "  -981     white";
+        String secondTest = "words and 987";
+        String numWithWords = "4193 with words";
         String num = "891";
         int aChar = (int)num.charAt(0);
 
-        int total = anAtoi.myAtoi(aTest);
+        int total = anAtoi.myAtoi(numWithWords);
     }
 
 }

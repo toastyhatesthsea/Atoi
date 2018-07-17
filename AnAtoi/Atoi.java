@@ -30,35 +30,35 @@ public class Atoi
                 return 0;
             }
 
-                if (stringWithoutSpace.length() >= 2 && negative == -1)
-                {
-                    int secondDigit = stringWithoutSpace.charAt(1);
-                    secondDigit = Character.getNumericValue(secondDigit);
+            //Larger than one digit and negative
+            if (stringWithoutSpace.length() >= 2 && negative == -1)
+            {
+                int secondDigit = stringWithoutSpace.charAt(1);
+                secondDigit = Character.getNumericValue(secondDigit);
 
-                    if (secondDigit < 48 || secondDigit > 57)
-                    {
-                        return 0;
-                    } else if (stringWithoutSpace.length() > 2)
-                    {
-                        return convertToInteger(stringWithoutSpace, secondDigit * negative);
-                    }
-                    else
-                    {
-                        return (secondDigit * negative);
-                    }
-
-                } else if (stringWithoutSpace.length() == 1)
+                if (secondDigit < 48 || secondDigit > 57)
                 {
                     return 0;
-                }
-                else
+                } else if (stringWithoutSpace.length() > 2) //More than two digits and negative
                 {
-                    return convertToInteger(stringWithoutSpace, firstDigit);
+                    return convertToInteger(stringWithoutSpace.substring(2, stringWithoutSpace.length()), secondDigit * negative);
                 }
+                else //Just a one digit negative number
+                {
+                    return (secondDigit * negative);
+                }
+
+            } else if (stringWithoutSpace.length() == 1)
+            {
+                return Character.getNumericValue(firstDigit);
+            } else //Larger than one digit and not negative
+            {
+                return convertToInteger(stringWithoutSpace.substring(1, stringWithoutSpace.length()), Character.getNumericValue(firstDigit));
+            }
         }
     }
 
-    public int convertToInteger(String aStr, int negative)
+    public int convertToInteger(String aStr, int total)
     {
         if (aStr.isEmpty())
         {
@@ -74,8 +74,6 @@ public class Atoi
         {
             int digit = aStr.charAt(0);
             digit = Character.getNumericValue(digit);
-
-
 
 
             return 0;

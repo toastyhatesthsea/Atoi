@@ -61,7 +61,22 @@ public class Atoi
         }
     }
 
-    public String getRidOfLeadingZeroes(String)
+    public String getRidOfLeadingZeroes(String s)
+    {
+        if (!s.isEmpty() && !s.substring(0, 1).equals("0"))
+        {
+            return s;
+        }
+        else if(s.isEmpty())
+        {
+            return s;
+        }
+        else
+        {
+            String aSubString = s.substring(1, s.length());
+            return getRidOfLeadingZeroes(aSubString);
+        }
+    }
 
     public int convertToInteger(String aStr, int total)
     {
@@ -155,10 +170,10 @@ class AtoiTesters
         String justNegative = "-";
         String positiveNumber = "+1";
         String justPositive = "+";
-        String negativeOneWithLeadingZeroes = "-00000000001";
+        String negativeOneWithLeadingZeroes = "00000000001";
         int aChar = (int)num.charAt(0);
 
-        int total = anAtoi.myAtoi(negativeOneWithLeadingZeroes);
+        String total = anAtoi.getRidOfLeadingZeroes(negativeOneWithLeadingZeroes);
     }
 
 }

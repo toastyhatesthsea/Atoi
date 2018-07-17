@@ -74,9 +74,12 @@ public class Atoi
         {
             int digit = aStr.charAt(0);
             digit = Character.getNumericValue(digit);
+            total = total * 10; //Expand Total to make room to add digit
+            total = total + digit;
 
+            convertToInteger(aStr.substring(1, aStr.length()), total);
 
-            return 0;
+            return total;
         }
     }
 

@@ -71,17 +71,44 @@ public class Atoi
         }
         else
         {
-            int digit = aStr.charAt(0);
-            digit = Character.getNumericValue(digit);
-            total = total * 10; //Expand Total to make room to add digit
+            boolean isNegative = false;
             if (total < 0)
             {
-                total = total - digit;
+                isNegative = true;
+            }
+            //int lastDigitBeforeAdd = total % 10;
+            int digit = aStr.charAt(0);
+            int digitNumericValue = Character.getNumericValue(digit);
+            total = total * 10; //Expand Total to make room to add digit
+
+            if (total < 0)
+            {
+                total = total - digitNumericValue;
             }
             else
             {
-                total = total + digit;
+                total = total + digitNumericValue;
             }
+
+            int lastTotalDigit = (total % 10);
+
+            if (isNegative)
+            {
+                lastTotalDigit = lastTotalDigit * -1;
+                digitNumericValue = digitNumericValue * -1;
+            }
+
+            if (digitNumericValue != lastTotalDigit)
+            {
+                if (isNegative)
+                {
+                    return Integer.MIN_VALUE;
+                } else
+                {
+                    return Integer.MAX_VALUE;
+                }
+            }
+
             return convertToInteger(aStr.substring(1, aStr.length()), total);
         }
     }
@@ -91,8 +118,10 @@ public class Atoi
         if (!aStr.isEmpty()&& !aStr.substring(0, 1).equals(" "))
         {
             return aStr;
-        }
-        else
+        } else if (aStr.equals(" "))
+        {
+            return "";
+        } else
         {
             String stringWithoutLeadingWhitespace = aStr.substring(1, aStr.length());
             return eliminatedWhiteSpace(stringWithoutLeadingWhitespace);
@@ -105,13 +134,17 @@ class AtoiTesters
     public static void main(String[] argsgsgs)
     {
         Atoi anAtoi = new Atoi();
+        String blank = " ";
+        String justFourtyTwo = "42";
         String aTest = "  -981     white";
         String secondTest = "words and 987";
         String numWithWords = "4193 with words";
+        String tooBigNegative = "-91283472332";
+        String justOverLimit = "-2147483649";
         String num = "891";
         int aChar = (int)num.charAt(0);
 
-        int total = anAtoi.myAtoi(numWithWords);
+        int total = anAtoi.myAtoi(aTest);
     }
 
 }

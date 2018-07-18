@@ -67,7 +67,12 @@ public class Atoi
                 }
             } else //Larger than one digit and not negative
             {
-                return convertToInteger(stringWithoutSpace.substring(1, stringWithoutSpace.length()), Character.getNumericValue(stringWithoutSpace.charAt(0)));
+                firstDigit = stringWithoutSpace.charAt(0);
+                if (firstDigit < 48 || firstDigit > 57)
+                {
+                    return 0;
+                }
+                return convertToInteger(stringWithoutSpace.substring(1, stringWithoutSpace.length()), Character.getNumericValue(firstDigit));
             }
         }
     }
@@ -122,7 +127,7 @@ public class Atoi
         } else if (aStr.substring(0, 1).equals(" "))
         {
             return total;
-        } else if (((int) aStr.charAt(0) < 48 || (int) aStr.charAt(0) > 57) && (total < 48 || total > 57))
+        } else if (((int) aStr.charAt(0) < 48 || (int) aStr.charAt(0) > 57))
         {
             return total;
         }
@@ -133,6 +138,7 @@ public class Atoi
             {
                 isNegative = true;
             }
+            int original = total;
             //int lastDigitBeforeAdd = total % 10;
             int digit = aStr.charAt(0);
             int digitNumericValue = Character.getNumericValue(digit);
@@ -147,14 +153,7 @@ public class Atoi
                 total = total + digitNumericValue;
             }
 
-            int lastTotalDigit = (total % 10);
-
-            if (isNegative)
-            {
-                lastTotalDigit = lastTotalDigit * -1;
-            }
-
-            if (digitNumericValue != lastTotalDigit)
+            if (original != total / 10)
             {
                 if (isNegative)
                 {
@@ -210,9 +209,10 @@ class AtoiTesters
         String plusAndNegativeLeading = "+-12";
         String blankPlusLeadingZeroesAndPlus = "          +004500";
         String crapola = "    +0a32";
+        String largeNumber = "20000000000000000000";
         int aChar = (int)num.charAt(0);
 
-        int total = anAtoi.myAtoi(crapola);
+        int total = anAtoi.myAtoi(largeNumber);
     }
 
 }

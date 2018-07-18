@@ -11,14 +11,17 @@ public class Atoi
         }
 
         String stringWithoutSpace = eliminatedWhiteSpace(str);
+        boolean toomanySymbols = tooManyOperands(stringWithoutSpace);
 
         if (stringWithoutSpace.isEmpty())
         {
             return 0;
-        }
-        else
+        } else if (toomanySymbols)
         {
-            int firstDigit = (int)stringWithoutSpace.charAt(0);
+            return 0;
+        } else
+        {
+            int firstDigit = (int) stringWithoutSpace.charAt(0);
             int negative = 1;
 
             if (firstDigit == 45)
@@ -28,9 +31,8 @@ public class Atoi
                 {
                     return 0;
                 }
-                stringWithoutSpace = getRidOfLeadingZeroes(stringWithoutSpace.substring(1, stringWithoutSpace.length()));
-            }
-            else if (firstDigit == 43)
+                    stringWithoutSpace = getRidOfLeadingZeroes(stringWithoutSpace.substring(1, stringWithoutSpace.length()));
+            } else if (firstDigit == 43)
             {
                 if (stringWithoutSpace.length() < 2)
                 {
@@ -59,8 +61,7 @@ public class Atoi
                 if (negative == -1)
                 {
                     return Character.getNumericValue(stringWithoutSpace.charAt(0)) * negative;
-                }
-                else
+                } else
                 {
                     return Character.getNumericValue(stringWithoutSpace.charAt(0));
                 }
@@ -85,6 +86,31 @@ public class Atoi
         {
             String aSubString = s.substring(1, s.length());
             return getRidOfLeadingZeroes(aSubString);
+        }
+    }
+
+    public boolean tooManyOperands(String s)
+    {
+        if (s.isEmpty())
+        {
+            return false;
+        } else if (s.length() < 2)
+        {
+            return false;
+        }
+        else
+        {
+            int firstDigit = s.charAt(0);
+            int secondDigit = s.charAt(1);
+
+            if ((firstDigit == 45 || firstDigit == 43) && (secondDigit == 45 || secondDigit == 43))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 
@@ -146,7 +172,7 @@ public class Atoi
     public String eliminatedWhiteSpace(String aStr)
     {
 
-        if (!aStr.isEmpty()&& (!aStr.substring(0, 1).equals(" ") && !aStr.substring(0, 1).equals("+")))
+        if (!aStr.isEmpty()&& (!aStr.substring(0, 1).equals(" ")))
         {
             return aStr;
         } else if (aStr.equals(" "))
@@ -181,9 +207,10 @@ class AtoiTesters
         String positiveNumber = "+1";
         String justPositive = "+";
         String negativeOneWithLeadingZeroes = "-00000000001";
+        String plusAndNegativeLeading = "+-12";
         int aChar = (int)num.charAt(0);
 
-        int total = anAtoi.myAtoi(secondTest);
+        int total = anAtoi.myAtoi(negativeFourtyTwo);
     }
 
 }

@@ -67,7 +67,7 @@ public class Atoi
                 }
             } else //Larger than one digit and not negative
             {
-                return convertToInteger(stringWithoutSpace.substring(1, stringWithoutSpace.length()), Character.getNumericValue(firstDigit));
+                return convertToInteger(stringWithoutSpace.substring(1, stringWithoutSpace.length()), Character.getNumericValue(stringWithoutSpace.charAt(0)));
             }
         }
     }
@@ -122,7 +122,7 @@ public class Atoi
         } else if (aStr.substring(0, 1).equals(" "))
         {
             return total;
-        } else if ((int) aStr.charAt(0) < 48 || (int) aStr.charAt(0) > 57)
+        } else if (((int) aStr.charAt(0) < 48 || (int) aStr.charAt(0) > 57) && (total < 48 || total > 57))
         {
             return total;
         }
@@ -208,9 +208,11 @@ class AtoiTesters
         String justPositive = "+";
         String negativeOneWithLeadingZeroes = "-00000000001";
         String plusAndNegativeLeading = "+-12";
+        String blankPlusLeadingZeroesAndPlus = "          +004500";
+        String crapola = "    +0a32";
         int aChar = (int)num.charAt(0);
 
-        int total = anAtoi.myAtoi(negativeFourtyTwo);
+        int total = anAtoi.myAtoi(crapola);
     }
 
 }

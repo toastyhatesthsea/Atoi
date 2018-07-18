@@ -24,12 +24,20 @@ public class Atoi
             if (firstDigit == 45)
             {
                 negative = -1;
-                if (str.length() < 2)
+                if (stringWithoutSpace.length() < 2)
                 {
                     return 0;
                 }
+                stringWithoutSpace = getRidOfLeadingZeroes(stringWithoutSpace.substring(1, stringWithoutSpace.length()));
             }
-            else if (firstDigit < 48 || firstDigit > 57)
+            else if (firstDigit == 43)
+            {
+                if (stringWithoutSpace.length() < 2)
+                {
+                    return 0;
+                }
+                stringWithoutSpace = getRidOfLeadingZeroes(stringWithoutSpace.substring(1, stringWithoutSpace.length()));
+            } else if (firstDigit < 48 || firstDigit > 57)
             {
                 return 0;
             }
@@ -37,23 +45,25 @@ public class Atoi
             //Larger than one digit and negative
             if (stringWithoutSpace.length() >= 2 && negative == -1)
             {
-                int secondDigit = stringWithoutSpace.charAt(1);
+                firstDigit = stringWithoutSpace.charAt(0);
 
-                if (secondDigit < 48 || secondDigit > 57)
+                if (firstDigit < 48 || firstDigit > 57)
                 {
                     return 0;
-                } else if (stringWithoutSpace.length() > 2) //More than two digits and negative
+                } else //More than two digits and negative
                 {
-                    return convertToInteger(stringWithoutSpace.substring(2, stringWithoutSpace.length()), Character.getNumericValue(secondDigit) * negative);
+                    return convertToInteger(stringWithoutSpace.substring(1, stringWithoutSpace.length()), Character.getNumericValue(firstDigit) * negative);
                 }
-                else //Just a one digit negative number
-                {
-                    return (Character.getNumericValue(secondDigit) * negative);
-                }
-
             } else if (stringWithoutSpace.length() == 1)
             {
-                return Character.getNumericValue(firstDigit);
+                if (negative == -1)
+                {
+                    return Character.getNumericValue(stringWithoutSpace.charAt(0)) * negative;
+                }
+                else
+                {
+                    return Character.getNumericValue(stringWithoutSpace.charAt(0));
+                }
             } else //Larger than one digit and not negative
             {
                 return convertToInteger(stringWithoutSpace.substring(1, stringWithoutSpace.length()), Character.getNumericValue(firstDigit));
@@ -170,10 +180,10 @@ class AtoiTesters
         String justNegative = "-";
         String positiveNumber = "+1";
         String justPositive = "+";
-        String negativeOneWithLeadingZeroes = "00000000001";
+        String negativeOneWithLeadingZeroes = "-00000000001";
         int aChar = (int)num.charAt(0);
 
-        String total = anAtoi.getRidOfLeadingZeroes(negativeOneWithLeadingZeroes);
+        int total = anAtoi.myAtoi(secondTest);
     }
 
 }
